@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Anichin</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="bg-[#12181f] text-white font-[Montserrat]">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#1f2937] bg-opacity-95 shadow-lg">
+        <div class="container mx-auto px-4">
+            <nav class="flex items-center justify-between h-16">
+                <a href="/" class="text-xl font-bold">Anichin Admin</a>
+                <div class="flex items-center space-x-4">
+                    <span class="text-gray-400">Welcome, Admin</span>
+                    <a href="/" class="text-blue-400 hover:text-blue-300">Back to Site</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 mt-24">
+        <!-- Dashboard Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="stat-card bg-[#1f2937] p-6 rounded-lg shadow-lg">
+                <h3 class="text-lg font-semibold mb-2">Total Episodes</h3>
+                <p class="text-3xl font-bold text-blue-400">1,234</p>
+            </div>
+            <div class="stat-card bg-[#1f2937] p-6 rounded-lg shadow-lg">
+                <h3 class="text-lg font-semibold mb-2">Active Series</h3>
+                <p class="text-3xl font-bold text-green-400">45</p>
+            </div>
+            <div class="stat-card bg-[#1f2937] p-6 rounded-lg shadow-lg">
+                <h3 class="text-lg font-semibold mb-2">Total Views</h3>
+                <p class="text-3xl font-bold text-yellow-400">2.5M</p>
+            </div>
+            <div class="stat-card bg-[#1f2937] p-6 rounded-lg shadow-lg">
+                <h3 class="text-lg font-semibold mb-2">Users</h3>
+                <p class="text-3xl font-bold text-purple-400">50K</p>
+            </div>
+        </div>
+
+        <!-- Content Management -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Latest Episodes -->
+            <div class="lg:col-span-2">
+                <div class="bg-[#1f2937] rounded-lg shadow-lg p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-bold">Latest Episodes</h2>
+                        <a href="new-episode.html" class="action-btn bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition inline-block">
+                            Add New Episode
+                        </a>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="admin-table">
+                            <thead>
+                                <tr class="text-left border-b border-gray-700">
+                                    <th class="pb-3">Title</th>
+                                    <th class="pb-3">Episode</th>
+                                    <th class="pb-3">Status</th>
+                                    <th class="pb-3">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-300">
+                                <tr class="border-b border-gray-700">
+                                    <td class="py-3">Martial Master</td>
+                                    <td>544</td>
+                                    <td><span class="status-badge published">Published</span></td>
+                                    <td>
+                                        <button class="action-btn text-blue-400 hover:text-blue-300 mr-2" data-action="edit" data-tooltip="Edit episode">Edit</button>
+                                        <button class="action-btn text-red-400 hover:text-red-300" data-action="delete" data-tooltip="Delete episode">Delete</button>
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-gray-700">
+                                    <td class="py-3">Spirit Sword Sovereign</td>
+                                    <td>493</td>
+                                    <td><span class="status-badge draft">Draft</span></td>
+                                    <td>
+                                        <button class="action-btn text-blue-400 hover:text-blue-300 mr-2" data-action="edit" data-tooltip="Edit episode">Edit</button>
+                                        <button class="action-btn text-red-400 hover:text-red-300" data-action="delete" data-tooltip="Delete episode">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div>
+                <div class="bg-[#1f2937] rounded-lg shadow-lg p-6">
+                    <h2 class="text-xl font-bold mb-6">Quick Actions</h2>
+                    <div class="space-y-4">
+                        <a href="new-series.html" class="quick-action w-full bg-green-500 hover:bg-green-600 text-white px-4 py-3 rounded-lg transition flex items-center justify-center">
+                            <i class="fas fa-plus mr-2"></i>
+                            New Series
+                        </a>
+                        <a href="new-episode.html" class="quick-action w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-3 rounded-lg transition flex items-center justify-center">
+                            <i class="fas fa-upload mr-2"></i>
+                            Upload Episode
+                        </a>
+                        <a href="settings.html" class="quick-action w-full bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-3 rounded-lg transition flex items-center justify-center">
+                            <i class="fas fa-cog mr-2"></i>
+                            Settings
+                        </a>
+                        <a href="manage-users.html" class="quick-action w-full bg-purple-500 hover:bg-purple-600 text-white px-4 py-3 rounded-lg transition flex items-center justify-center">
+                            <i class="fas fa-users mr-2"></i>
+                            Manage Users
+                        </a>
+                        <a href="video-library.html" class="quick-action w-full bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-3 rounded-lg transition flex items-center justify-center">
+                            <i class="fas fa-video mr-2"></i>
+                            Video Library
+                        </a>
+                        <a href="playback-settings.html" class="quick-action w-full bg-pink-500 hover:bg-pink-600 text-white px-4 py-3 rounded-lg transition flex items-center justify-center">
+                            <i class="fas fa-play-circle mr-2"></i>
+                            Playback Settings
+                        </a>
+                        <a href="analytics.html" class="quick-action w-full bg-teal-500 hover:bg-teal-600 text-white px-4 py-3 rounded-lg transition flex items-center justify-center">
+                            <i class="fas fa-chart-line mr-2"></i>
+                            Analytics
+                        </a>
+                        <a href="user-comments.html" class="quick-action w-full bg-rose-500 hover:bg-rose-600 text-white px-4 py-3 rounded-lg transition flex items-center justify-center">
+                            <i class="fas fa-comments mr-2"></i>
+                            User Comments
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Custom JavaScript -->
+    <script src="js/admin.js"></script>
+</body>
+</html>
