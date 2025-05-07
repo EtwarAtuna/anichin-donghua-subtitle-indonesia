@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Episode - Anichin Admin</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="bg-[#12181f] text-white font-[Montserrat]">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#1f2937] bg-opacity-95 shadow-lg">
+        <div class="container mx-auto px-4">
+            <nav class="flex items-center justify-between h-16">
+                <a href="/admin" class="text-xl font-bold">Anichin Admin</a>
+                <div class="flex items-center space-x-4">
+                    <span class="text-gray-400">Welcome, Admin</span>
+                    <a href="/" class="text-blue-400 hover:text-blue-300">Back to Site</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 mt-24">
+        <div class="max-w-2xl mx-auto">
+            <div class="bg-[#1f2937] rounded-lg shadow-lg p-6">
+                <h1 class="text-2xl font-bold mb-6">Add New Episode</h1>
+                <form id="newEpisodeForm" class="space-y-6">
+                    <!-- Series Selection -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2" for="series">Series</label>
+                        <select id="series" name="series" required
+                            class="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 focus:border-blue-400 focus:outline-none">
+                            <option value="">Select Series</option>
+                            <option value="martial-master">Martial Master</option>
+                            <option value="spirit-sword">Spirit Sword Sovereign</option>
+                            <option value="tales-herding">Tales of Herding Gods</option>
+                        </select>
+                    </div>
+
+                    <!-- Episode Number -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2" for="episodeNumber">Episode Number</label>
+                        <input type="number" id="episodeNumber" name="episodeNumber" required min="1"
+                            class="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 focus:border-blue-400 focus:outline-none">
+                    </div>
+
+                    <!-- Episode Title -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2" for="episodeTitle">Episode Title (Optional)</label>
+                        <input type="text" id="episodeTitle" name="episodeTitle"
+                            class="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 focus:border-blue-400 focus:outline-none">
+                    </div>
+
+                    <!-- Video File -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2" for="videoFile">Video File</label>
+                        <div class="flex items-center space-x-4">
+                            <input type="file" id="videoFile" name="videoFile" accept="video/*" required
+                                class="hidden" onchange="updateFileName(this)">
+                            <button type="button" onclick="document.getElementById('videoFile').click()"
+                                class="px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg transition">
+                                Choose Video
+                            </button>
+                            <span id="selectedFileName" class="text-gray-400">No file chosen</span>
+                        </div>
+                    </div>
+
+                    <!-- Subtitles -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Subtitles</label>
+                        <div class="space-y-4">
+                            <!-- Indonesian Subtitles -->
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-sm">Indonesian (Required)</span>
+                                    <input type="file" id="subIndo" name="subIndo" accept=".srt,.vtt" required
+                                        class="hidden" onchange="updateSubFileName(this, 'selectedSubIndoName')">
+                                    <button type="button" onclick="document.getElementById('subIndo').click()"
+                                        class="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded-lg transition text-sm">
+                                        Upload
+                                    </button>
+                                </div>
+                                <span id="selectedSubIndoName" class="text-sm text-gray-400">No file chosen</span>
+                            </div>
+
+                            <!-- English Subtitles -->
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-sm">English</span>
+                                    <input type="file" id="subEng" name="subEng" accept=".srt,.vtt"
+                                        class="hidden" onchange="updateSubFileName(this, 'selectedSubEngName')">
+                                    <button type="button" onclick="document.getElementById('subEng').click()"
+                                        class="px-3 py-1 bg-gray-600 hover:bg-gray-500 rounded-lg transition text-sm">
+                                        Upload
+                                    </button>
+                                </div>
+                                <span id="selectedSubEngName" class="text-sm text-gray-400">No file chosen</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thumbnail -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Episode Thumbnail</label>
+                        <div class="flex items-center space-x-4">
+                            <div class="flex-shrink-0 w-32 h-20 bg-gray-700 rounded-lg overflow-hidden">
+                                <img id="thumbnailPreview" src="#" alt="Thumbnail preview" class="w-full h-full object-cover hidden">
+                                <div id="thumbnailPlaceholder" class="w-full h-full flex items-center justify-center text-gray-400">
+                                    <i class="fas fa-image text-2xl"></i>
+                                </div>
+                            </div>
+                            <div class="flex-grow">
+                                <input type="file" id="thumbnail" name="thumbnail" accept="image/*" required
+                                    class="hidden" onchange="previewThumbnail(this)">
+                                <button type="button" onclick="document.getElementById('thumbnail').click()"
+                                    class="px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg transition">
+                                    Choose Image
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Status -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Status</label>
+                        <div class="flex space-x-4">
+                            <label class="flex items-center space-x-2">
+                                <input type="radio" name="status" value="draft" checked
+                                    class="text-blue-500 bg-gray-700 border-gray-600">
+                                <span>Draft</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="radio" name="status" value="published"
+                                    class="text-blue-500 bg-gray-700 border-gray-600">
+                                <span>Publish</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="flex justify-end space-x-4">
+                        <a href="/admin" class="px-6 py-2 bg-gray-600 hover:bg-gray-500 rounded-lg transition">Cancel</a>
+                        <button type="submit" class="px-6 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg transition">
+                            Add Episode
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Custom JavaScript -->
+    <script src="js/admin.js"></script>
+    <script>
+        function updateFileName(input) {
+            const fileName = input.files[0]?.name || 'No file chosen';
+            document.getElementById('selectedFileName').textContent = fileName;
+        }
+
+        function updateSubFileName(input, elementId) {
+            const fileName = input.files[0]?.name || 'No file chosen';
+            document.getElementById(elementId).textContent = fileName;
+        }
+
+        function previewThumbnail(input) {
+            const preview = document.getElementById('thumbnailPreview');
+            const placeholder = document.getElementById('thumbnailPlaceholder');
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                    placeholder.classList.add('hidden');
+                }
+                
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        document.getElementById('newEpisodeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Here you would typically send the form data to your backend
+            alert('Episode added successfully!');
+            window.location.href = '/admin';
+        });
+    </script>
+</body>
+</html>
