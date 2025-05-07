@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Series - Anichin Admin</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="bg-[#12181f] text-white font-[Montserrat]">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#1f2937] bg-opacity-95 shadow-lg">
+        <div class="container mx-auto px-4">
+            <nav class="flex items-center justify-between h-16">
+                <a href="/admin" class="text-xl font-bold">Anichin Admin</a>
+                <div class="flex items-center space-x-4">
+                    <span class="text-gray-400">Welcome, Admin</span>
+                    <a href="/" class="text-blue-400 hover:text-blue-300">Back to Site</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 mt-24">
+        <div class="max-w-2xl mx-auto">
+            <div class="bg-[#1f2937] rounded-lg shadow-lg p-6">
+                <h1 class="text-2xl font-bold mb-6">Add New Series</h1>
+                <form id="newSeriesForm" class="space-y-6">
+                    <!-- Title -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2" for="title">Series Title</label>
+                        <input type="text" id="title" name="title" required
+                            class="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 focus:border-blue-400 focus:outline-none">
+                    </div>
+
+                    <!-- Description -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2" for="description">Description</label>
+                        <textarea id="description" name="description" rows="4" required
+                            class="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 focus:border-blue-400 focus:outline-none"></textarea>
+                    </div>
+
+                    <!-- Genres -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Genres</label>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="genres[]" value="Action" class="rounded bg-gray-700 border-gray-600">
+                                <span>Action</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="genres[]" value="Adventure" class="rounded bg-gray-700 border-gray-600">
+                                <span>Adventure</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="genres[]" value="Fantasy" class="rounded bg-gray-700 border-gray-600">
+                                <span>Fantasy</span>
+                            </label>
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="genres[]" value="Martial Arts" class="rounded bg-gray-700 border-gray-600">
+                                <span>Martial Arts</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Cover Image -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2" for="coverImage">Cover Image</label>
+                        <div class="flex items-center space-x-4">
+                            <div class="flex-shrink-0 w-32 h-44 bg-gray-700 rounded-lg overflow-hidden">
+                                <img id="coverPreview" src="#" alt="Cover preview" class="w-full h-full object-cover hidden">
+                                <div id="coverPlaceholder" class="w-full h-full flex items-center justify-center text-gray-400">
+                                    <i class="fas fa-image text-3xl"></i>
+                                </div>
+                            </div>
+                            <div class="flex-grow">
+                                <input type="file" id="coverImage" name="coverImage" accept="image/*" required
+                                    class="hidden" onchange="previewImage(this)">
+                                <button type="button" onclick="document.getElementById('coverImage').click()"
+                                    class="px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg transition">
+                                    Choose Image
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Status -->
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Status</label>
+                        <select name="status" required
+                            class="w-full px-4 py-2 rounded-lg bg-gray-700 border border-gray-600 focus:border-blue-400 focus:outline-none">
+                            <option value="ongoing">Ongoing</option>
+                            <option value="completed">Completed</option>
+                            <option value="upcoming">Upcoming</option>
+                        </select>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="flex justify-end space-x-4">
+                        <a href="/admin" class="px-6 py-2 bg-gray-600 hover:bg-gray-500 rounded-lg transition">Cancel</a>
+                        <button type="submit" class="px-6 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg transition">
+                            Add Series
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Custom JavaScript -->
+    <script src="js/admin.js"></script>
+    <script>
+        function previewImage(input) {
+            const preview = document.getElementById('coverPreview');
+            const placeholder = document.getElementById('coverPlaceholder');
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                    placeholder.classList.add('hidden');
+                }
+                
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        document.getElementById('newSeriesForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Here you would typically send the form data to your backend
+            alert('Series added successfully!');
+            window.location.href = '/admin';
+        });
+    </script>
+</body>
+</html>
